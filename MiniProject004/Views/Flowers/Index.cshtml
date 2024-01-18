@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MiniProject004.Models.Flower>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form method="post" asp-controller="Flowers" asp-action="Index">
+<div class="row">
+    <input type="text" name="searchWord" id="searchWord" class="col-2" placeholder="Write english name" />
+    <input type="submit" name="search" value="Search" class="col-1" />
+</div>
+@if (ViewBag.SearchWord != null)
+{
+<div class="row">
+    <div class="col-2" style="padding: 0px;">You have searched by word: </div>
+    <div class="col-2 fw-bold text-primary">@ViewBag.SearchWord</div>
+</div>
+}
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ENGName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GERName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.POLName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1; }
+            @foreach (var item in Model) {
+            <tr>
+                <td>@i</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ENGName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GERName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.POLName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            i++;
+    }
+        </tbody>
+    </table>
+</div>
+</form>
